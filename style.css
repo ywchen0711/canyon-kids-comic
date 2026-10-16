@@ -117,3 +117,20 @@ button { font: inherit; cursor: pointer; color: inherit; }
   .cap { font-size: 12px; }
   .board { grid-template-columns: 1fr 1fr; } .chip { display: none; }
 }
+
+/* ---------- Dog Man style: hand-lettered text, wobbly hand-drawn borders, slightly crooked panels ---------- */
+html, body { font-family: "Patrick Hand", "LXGW WenKai TC", "Huninn", "Microsoft JhengHei", sans-serif; }
+body { background-color: #fbf6ea; background-image: radial-gradient(rgba(20,18,24,.06) 1px, transparent 1.3px); }
+.btn { font-family: "Patrick Hand", "LXGW WenKai TC", sans-serif; font-size: 18px; border-radius: 14px 6px 12px 5px / 6px 12px 5px 14px; }
+.page { border-radius: 4px 10px 6px 12px / 12px 4px 10px 6px; background: #fffef9; }
+.panel { border-width: 4px; border-radius: 6px 14px 5px 12px / 14px 5px 12px 6px; }
+.page > .panel:nth-child(odd) { transform: rotate(-.35deg); } .page > .panel:nth-child(even) { transform: rotate(.4deg); }
+.page > .panel.pending { transform: scale(.97); }
+.bub { font-family: "Patrick Hand", "LXGW WenKai TC", sans-serif; font-weight: 700; font-size: clamp(12px, 1.75vw, 18px); line-height: 1.3; border-width: 3px; border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px; padding: 7px 13px; }
+.bub.k-shout { border-radius: 8px 22px 6px 18px / 18px 6px 22px 8px; }
+.bub.k-think { border-radius: 40px; }
+.cap { font-family: "Patrick Hand", "LXGW WenKai TC", sans-serif; font-size: clamp(12px, 1.6vw, 16px); border-radius: 0 0 14px 0 / 0 0 6px 0; background: #fff1a0; }
+.sfx { font-family: "Permanent Marker", "LXGW WenKai TC", sans-serif; font-weight: 700; -webkit-text-stroke: 2.5px #141218; }
+.title h1 span, .endcard .theend { font-family: "Permanent Marker", "LXGW WenKai TC", sans-serif; font-weight: 700; }
+.chcard, .tart, .choice, .mini, .endcard { border-radius: 6px 16px 5px 14px / 14px 5px 16px 6px; }
+.btn.opt { font-size: 18px; }

@@ -1,7 +1,7 @@
 // Canyon Kids: the comic's art, drawn as SVG — the family and friends (with expressions and poses), animals and
 // robots, props, backgrounds, foregrounds and effects. Every panel is a 400×260 scene; characters stand on y≈248.
 export const W = 400, H = 260;
-const INK = '#1d1a24', SW = 2.4, SKIN = '#f6cfa8';
+const INK = '#141218', SW = 3, SKIN = '#f6cfa8';
 const f2 = (n) => Math.round(n * 10) / 10;
 const ln = (pts, stroke, w, extra = '') => `<path d="M${pts.map((p) => f2(p[0]) + ' ' + f2(p[1])).join(' L')}" fill="none" stroke="${stroke}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" ${extra}/>`;
 const circ = (x, y, r, fill, stroke = INK, w = SW, extra = '') => `<circle cx="${f2(x)}" cy="${f2(y)}" r="${f2(r)}" fill="${fill}" stroke="${stroke}" stroke-width="${w}" ${extra}/>`;
@@ -11,9 +11,9 @@ const path = (d, fill, stroke = INK, w = SW, extra = '') => `<path d="${d}" fill
 
 // ------------------------------------------------------------------ the cast
 export const CAST = {
-  jeff: { H: 174, r: 23, shirt: '#2f5597', pants: '#3a3a48', shoes: '#26262e', hair: '#1b1b22', style: 'jeff', glasses: true, adult: true, hood: true },
-  youngjeff: { H: 170, r: 23, shirt: '#eef0f6', pants: '#3a3a48', shoes: '#26262e', hair: '#1b1b22', style: 'jeff', glasses: true, adult: true, tie: '#c83a3a' },
-  erin: { H: 162, r: 22, shirt: '#e8607a', pants: '#4a4a6a', shoes: '#8a3a4a', hair: '#2a1a18', style: 'erin', adult: true, earrings: true },
+  jeff: { H: 174, r: 23, shirt: '#2f5597', pants: '#3a3a48', shoes: '#26262e', hair: '#1b1b22', style: 'jeff', adult: true, hood: true },
+  youngjeff: { H: 170, r: 23, shirt: '#eef0f6', pants: '#3a3a48', shoes: '#26262e', hair: '#1b1b22', style: 'jeff', adult: true, tie: '#c83a3a' },
+  erin: { H: 162, r: 22, shirt: '#e8607a', pants: '#4a4a6a', shoes: '#8a3a4a', hair: '#2a1a18', style: 'erin', adult: true, earrings: true, sunnies: true },
   younggirl: { H: 120, r: 24, shirt: '#ffd0e0', pants: '#5a7ac8', shoes: '#c83a5a', hair: '#2a1a18', style: 'pigtails' },
   josh: { H: 134, r: 25, shirt: '#36a35a', pants: '#2e4a7a', shoes: '#f2f2f2', hair: '#15151c', style: 'josh', logo: 'SC' },
   jasper: { H: 110, r: 24, shirt: '#f4a11c', pants: '#3a5a9a', shoes: '#e85a3a', hair: '#241a14', style: 'jasper', star: true },
@@ -34,7 +34,7 @@ function face(e, r, hy, k) {
   const ex = r * 0.38, ey = hy + r * 0.08, my = hy + r * 0.5, D = '#231c2a';
   let s = '';
   const blush = () => ell(-r * 0.6, hy + r * 0.38, r * 0.17, r * 0.1, '#ff9a9a', 'none', 0, 'opacity=".7"') + ell(r * 0.6, hy + r * 0.38, r * 0.17, r * 0.1, '#ff9a9a', 'none', 0, 'opacity=".7"');
-  const dots = (sz = 1) => [-1, 1].map((sd) => ell(sd * ex, ey, 2.6 * sz, 3.5 * sz, D, 'none', 0) + circ(sd * ex + 0.9, ey - 1.3, 0.9 * sz, '#fff', 'none', 0)).join('');
+  const dots = (sz = 1) => [-1, 1].map((sd) => ell(sd * ex, ey, 4.2 * sz, 5.2 * sz, '#fff', D, 1.7) + circ(sd * ex + 0.8, ey + 0.8, 2.1 * sz, D, 'none', 0)).join('');
   // brows: how high the inner and outer ends sit
   const browLine = (inner, outer) => [-1, 1].map((sd) => ln([[sd * (ex - 5), ey - 8 - inner], [sd * (ex + 5), ey - 8 - outer]], D, 2.2)).join('');
   switch (e) {
@@ -157,6 +157,7 @@ function human(k, o) {
   if (k.earrings) s += circ(-r * 0.98, hy + r * 0.38, 2, '#ffd040', INK, 1) + circ(r * 0.98, hy + r * 0.38, 2, '#ffd040', INK, 1);
   s += face(e, r, hy, k);
   s += hairFront(k.style, r, hy, k.hair);
+  if (k.sunnies) s += `<g transform="rotate(-6 0 ${f2(hy - r * 0.78)})">` + [-1, 1].map((sd) => path(`M${f2(sd * r * 0.42 - 8)} ${f2(hy - r * 0.86)} L${f2(sd * r * 0.42 + 8)} ${f2(hy - r * 0.86)} Q${f2(sd * r * 0.42 + 8)} ${f2(hy - r * 0.5)} ${f2(sd * r * 0.42)} ${f2(hy - r * 0.5)} Q${f2(sd * r * 0.42 - 8)} ${f2(hy - r * 0.5)} ${f2(sd * r * 0.42 - 8)} ${f2(hy - r * 0.86)} Z`, '#2a2a3a', INK, 2) + ln([[sd * r * 0.42 - 4, hy - r * 0.8], [sd * r * 0.42 - 1, hy - r * 0.64]], '#9ad8ff', 1.6)).join('') + ln([[-r * 0.42 + 8, hy - r * 0.84], [r * 0.42 - 8, hy - r * 0.84]], INK, 2.2) + '</g>';
   if (k.glasses) s += [-1, 1].map((sd) => rect(sd * r * 0.38 - 6.5, hy + r * 0.08 - 5, 13, 10, 'rgba(200,230,255,.25)', 3, INK, 1.8)).join('') + ln([[-r * 0.38 + 6.5, hy + r * 0.05], [r * 0.38 - 6.5, hy + r * 0.05]], INK, 1.6);
   if (o.mask) s += path(`M${-r * 0.62} ${hy + r * 0.2} Q0 ${hy + r * 0.1} ${r * 0.62} ${hy + r * 0.2} L${r * 0.5} ${hy + r * 0.78} Q0 ${hy + r * 0.95} ${-r * 0.5} ${hy + r * 0.78} Z`, '#f4f4f8', INK, 1.6);
   if (o.sweat) s += path(`M${r * 0.95} ${hy - r * 0.55} q4 7 0 10 q-4 -3 0 -10 Z`, '#9ad0ff', '#4a8ad8', 1.2);
@@ -219,7 +220,7 @@ function ghostlight(o) {
 }
 
 // ------------------------------------------------------------------ backgrounds (400×260)
-const sky = (a, b) => `<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="400" height="260" fill="url(#sk)"/>`;
+const sky = (a, b) => { const id = 'sk' + (a + b).replace(/[^0-9a-f]/gi, ''); return `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><rect width="400" height="260" fill="url(#${id})"/>`; };
 const palm = (x, y, s = 1, c = '#3a7a3a') => `<g transform="translate(${x} ${y}) scale(${s})">${path('M-3 0 Q-6 -60 4 -120 L9 -120 Q2 -60 4 0 Z', '#8a6a4a', INK, 1.6)}${[-60, -25, 15, 50, 85].map((a) => `<path d="M6 -120 q${f2(Math.cos((a * Math.PI) / 180) * 30)} -20 ${f2(Math.cos((a * Math.PI) / 180) * 55)} ${f2(-Math.sin((a * Math.PI) / 180) * 10 + 15)}" fill="none" stroke="${c}" stroke-width="7" stroke-linecap="round"/>`).join('')}</g>`;
 const house = (x, y, w, wall = '#f4e2c4', roof = '#c8603a') => rect(x, y - 50, w, 50, wall, 0) + path(`M${x - 8} ${y - 48} L${x + w / 2} ${y - 82} L${x + w + 8} ${y - 48} Z`, roof) + rect(x + w * 0.15, y - 36, w * 0.22, 18, '#a8d8f0', 1, INK, 1.6) + rect(x + w * 0.62, y - 34, w * 0.2, 34, '#8a5a3a', 1, INK, 1.6);
 const bush = (x, y, s = 1, c = '#7a9a6a') => [0, 1, 2].map((i) => circ(x + (i - 1) * 14 * s, y - 8 * s - (i === 1 ? 6 * s : 0), 13 * s, c, INK, 1.6)).join('');
@@ -314,6 +315,8 @@ export const DEFS = `<defs>
   <radialGradient id="vig" cx=".5" cy=".5" r=".7"><stop offset=".45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".85"/></radialGradient>
   <radialGradient id="rg"><stop offset="0" stop-color="#bff4ff" stop-opacity=".95"/><stop offset="1" stop-color="#4ac8ff" stop-opacity="0"/></radialGradient>
   <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff8c0" stop-opacity=".9"/><stop offset="1" stop-color="#fff8c0" stop-opacity="0"/></linearGradient>
+  <filter id="hand" x="-2%" y="-2%" width="104%" height="104%"><feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3.4" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="3" stitchTiles="stitch"/><feColorMatrix type="matrix" values="0 0 0 0 0.35  0 0 0 0 0.3  0 0 0 0 0.25  0 0 0 -1.6 1.05"/></filter>
 </defs>`;
 
 // a character placed in the scene: [who, x%, expression, pose, {s, y, f, prop, ...}]
@@ -326,11 +329,12 @@ export function placeChar([who, x, e, p, o = {}]) {
 }
 export function scene(panel) {
   const bgFn = BG[panel.bg] || BG.white;
-  let s = DEFS + bgFn(panel.bo || {});
+  let s = bgFn(panel.bo || {});
   for (const c of panel.c || []) s += placeChar(c);
   if (panel.fg) s += (FG[panel.fg] || (() => ''))();
   for (const f of panel.fx || []) s += (FX[f] || (() => ''))(panel);
-  return s;
+  // Dog Man style: wobbly marker lines, then a coloured-pencil grain on top
+  return DEFS + `<g filter="url(#hand)">${s}</g><rect width="400" height="260" filter="url(#grain)" opacity=".55" style="mix-blend-mode:multiply" pointer-events="none"/>`;
 }
 export const knownBg = (b) => b in BG;
 export const knownChar = (c) => c in CAST;

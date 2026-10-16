@@ -1,6 +1,6 @@
 // Canyon Kids: the reader — title, chapter list, panel-by-panel reading, speech bubbles, choices and flags,
 // the interactive mini scenes (find, flashlight, wires, pack), endings, and saving progress.
-import { scene, CAST } from './art.js?v=1';
+import { scene, CAST } from './art.js?v=2';
 import { t, T2, getLang, setLang } from './i18n.js?v=1';
 import ch1 from './story/ch1.js?v=1';
 import ch2 from './story/ch2.js?v=1';
