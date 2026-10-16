@@ -1,0 +1,10 @@
+{
+  "name": "canyon-kids-comic",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Canyon Kids: an interactive comic about Josh, Jasper, Jeff and Erin in San Diego",
+  "scripts": {
+    "test": "node tools/check.mjs"
+  }
+}
